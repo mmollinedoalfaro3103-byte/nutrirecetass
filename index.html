@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido | NutriRecetas</title>
+    <link rel="stylesheet" href="css/portada.css">
+</head>
+
+<body>
+
+    <main class="welcome-container">
+
+        <div class="welcome-card">
+
+            <div class="logo">✿</div>
+
+            <span class="eyebrow">ALIMENTACIÓN CONSCIENTE</span>
+
+            <h1>Bienvenido a<br>
+                <span>NutriRecetas</span>
+            </h1>
+
+            <p>
+                Descubre nuevos sabores, aprende sobre nutrición
+                y encuentra recetas deliciosas para cuidar de ti.
+            </p>
+
+            <form id="welcomeForm">
+
+                <label for="username">¿Cómo te llamas?</label>
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Ingresa tu nombre..."
+                    required
+                >
+
+                <button type="submit">
+                    Ingresar →
+                </button>
+
+            </form>
+
+            <small>Recetas que nutren, sabores que inspiran.</small>
+
+        </div>
+
+    </main>
+
+    <script>
+        document.getElementById("welcomeForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById("username").value.trim();
+
+            if (nombre === "") {
+                alert("Por favor, ingresa tu nombre.");
+                return;
+            }
+
+            localStorage.setItem("nombreUsuario", nombre);
+
+            window.location.href = "recetas.html";
+        });
+    </script>
+
+</body>
+</html>

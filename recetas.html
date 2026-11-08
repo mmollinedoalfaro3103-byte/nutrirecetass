@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NutriRecetas: recetas saludables bolivianas e internacionales.">
+    <title>NutriRecetas | Recetas que nutren</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/estilos.css">
+
+    <script src="js/recetas.js" defer></script>
+    <script src="js/app.js" defer></script>
+</head>
+
+<body>
+
+    <!-- BIENVENIDA -->
+    <div class="user-welcome">
+        <span class="welcome-greeting">¡Bienvenido!</span>
+        <h2 id="nombreBienvenida"></h2>
+        <p>Nos alegra tenerte aquí.</p>
+    </div>
+
+    <script>
+        const nombre = localStorage.getItem("nombreUsuario");
+
+        if (!nombre) {
+            window.location.href = "index.html";
+        } else {
+            document.getElementById("nombreBienvenida").textContent = nombre;
+        }
+    </script>
+
+    <!-- ENCABEZADO -->
+    <header class="header">
+
+        <a href="#inicio" class="logo">
+            <span class="logo-icon">✿</span>
+            <span>Nutri<span>Recetas</span></span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle">☰</button>
+
+        <nav class="nav" id="nav">
+            <a href="#inicio">Inicio</a>
+            <a href="#perfil">Mi perfil</a>
+            <a href="#recetas">Recetas</a>
+            <a href="#categorias">Categorías</a>
+            <a href="#nosotros">Nosotros</a>
+        </nav>
+
+        <a href="#favoritos" class="header-fav">♡ Favoritos</a>
+
+    </header>
+
+    <main>
+
+        <!-- PORTADA -->
+        <section class="hero" id="inicio">
+
+            <div class="hero-content">
+
+                <span class="eyebrow">ALIMENTACIÓN CONSCIENTE</span>
+
+                <h1>
+                    Come rico.<br>
+                    <em>Vive saludable.</em>
+                </h1>
+
+                <p>
+                    Descubre recetas deliciosas, conoce sus nutrientes
+                    y encuentra inspiración para alimentarte de manera equilibrada.
+                </p>
+
+                <a href="#perfil" class="btn btn-primary">
+                    Crear mi perfil →
+                </a>
+
+                <div class="hero-note">
+                    ✓ Sabores bolivianos e internacionales
+                </div>
+
+            </div>
+
+            <div class="hero-photo">
+
+                <img
+                    src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1100&q=85"
+                    alt="Ensalada saludable"
+                >
+
+            </div>
+
+        </section>
+
+        <!-- PERFIL DEL USUARIO -->
+        <section class="section profile-section" id="perfil">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">CONÓCETE MEJOR</span>
+                    <h2>Mi perfil nutricional</h2>
+                </div>
+
+                <p>
+                    Completa tus datos para recibir sugerencias compatibles
+                    con tus necesidades.
+                </p>
+            </div>
+
+            <form class="profile-form" id="profileForm">
+
+                <div class="profile-fields">
+
+                    <label>
+                        Edad
+                        <input type="number" id="edad" min="1" max="120"
+                            placeholder="Ej. 25" required>
+                    </label>
+
+                    <label>
+                        Peso (kg)
+                        <input type="number" id="peso" min="1" step="0.1"
+                            placeholder="Ej. 65">
+                    </label>
+
+                    <label>
+                        Altura (cm)
+                        <input type="number" id="altura" min="1"
+                            placeholder="Ej. 170">
+                    </label>
+
+                    <label>
+                        Nivel de actividad física
+                        <select id="actividad">
+                            <option value="Baja">Baja</option>
+                            <option value="Moderada">Moderada</option>
+                            <option value="Alta">Alta</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Objetivo alimenticio
+                        <select id="objetivo">
+                            <option value="General">Alimentación equilibrada</option>
+                            <option value="Deportista">Rendimiento deportivo</option>
+                            <option value="Diabetes">Alimentación para diabetes</option>
+                            <option value="Bajar de peso">Control de peso</option>
+                            <option value="Subir de peso">Aumentar de peso</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Preferencia alimentaria
+                        <select id="preferencia">
+                            <option value="Todas">Sin preferencia</option>
+                            <option value="Vegetariana">Vegetariana</option>
+                            <option value="Vegana">Vegana</option>
+                            <option value="Sin lactosa">Sin lactosa</option>
+                            <option value="Sin gluten">Sin gluten</option>
+                        </select>
+                    </label>
+
+                </div>
+
+                <label>
+                    Condición de salud
+                    <select id="condicion">
+                        <option value="Ninguna">Ninguna</option>
+                        <option value="Diabetes">Diabetes</option>
+                        <option value="Hipertension">Hipertensión</option>
+                        <option value="Intolerancia lactosa">Intolerancia a la lactosa</option>
+                        <option value="Celiaquia">Celiaquía</option>
+                        <option value="Enfermedad renal">Enfermedad renal</option>
+                        <option value="Otra">Otra condición</option>
+                    </select>
+                </label>
+
+                <p class="profile-notice">
+                    Tus datos se utilizarán para orientar las recomendaciones.
+                    Este perfil no sustituye una evaluación profesional.
+                </p>
+
+                <button type="submit" class="btn btn-primary">
+                    Guardar mi perfil →
+                </button>
+
+                <p id="profileMessage" aria-live="polite"></p>
+
+                <!-- RECOMENDACIÓN PERSONALIZADA -->
+                <div class="recommendation-box" id="recommendationBox" hidden>
+
+                    <span class="eyebrow">RECOMENDACIÓN PARA TI</span>
+
+                    <h3 id="recommendationTitle"></h3>
+
+                    <p id="recommendationText"></p>
+
+                </div>
+
+            </form>
+
+        </section>
+
+        <!-- RECETAS -->
+        <section class="section recipes-section" id="recetas">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">COCINA CON PROPÓSITO</span>
+                    <h2>Recetas para descubrir</h2>
+                </div>
+
+                <p id="recipeRecommendationText">
+                    Consulta ingredientes, preparación y valores
+                    nutricionales estimados.
+                </p>
+            </div>
+
+            <div class="recipe-tools">
+
+                <label class="search-box">
+                    <span>⌕</span>
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Buscar receta o ingrediente..."
+                    >
+                </label>
+
+                <select id="categoryFilter">
+                    <option value="Todas">Todas las categorías</option>
+                    <option value="Desayuno">Desayunos</option>
+                    <option value="Almuerzo">Almuerzos</option>
+                    <option value="Cena">Cenas</option>
+                    <option value="Merienda">Meriendas</option>
+                    <option value="Bebida">Bebidas</option>
+                </select>
+
+                <select id="originFilter">
+                    <option value="Todos">Todos los orígenes</option>
+                    <option value="Boliviana">Bolivianas</option>
+                    <option value="Internacional">Internacionales</option>
+                </select>
+
+            </div>
+
+            <div class="recipe-grid" id="recipeGrid"></div>
+
+            <p class="empty-message" id="emptyMessage" hidden>
+                No encontramos recetas con esos criterios.
+            </p>
+
+        </section>
+
+        <!-- CATEGORÍAS ALIMENTARIAS -->
+        <section class="section" id="categorias">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">ALIMENTACIÓN PARA TODOS</span>
+                    <h2>Encuentra tu categoría</h2>
+                </div>
+
+                <p>Elige la categoría que deseas explorar.</p>
+            </div>
+
+            <div class="tips-grid">
+
+                <button class="tip-card nutrition-category" data-nutrition="General">
+                    <span>🥗</span>
+                    <h3>Alimentación general</h3>
+                    <p>21 recetas variadas y equilibradas.</p>
+                    <strong>Ver 21 recetas →</strong>
+                </button>
+
+                <button class="tip-card nutrition-category" data-nutrition="Deportista">
+                    <span>🏋️</span>
+                    <h3>Deportistas</h3>
+                    <p>21 recetas para acompañar la actividad física.</p>
+                    <strong>Ver 21 recetas →</strong>
+                </button>
+
+                <button class="tip-card nutrition-category" data-nutrition="Diabetes">
+                    <span>🍏</span>
+                    <h3>Diabetes</h3>
+                    <p>21 opciones con atención a los carbohidratos y la fibra.</p>
+                    <strong>Ver 21 recetas →</strong>
+                </button>
+
+                <button class="tip-card nutrition-category" data-nutrition="Bajar de peso">
+                    <span>⚖️</span>
+                    <h3>Control de peso</h3>
+                    <p>21 preparaciones variadas y nutritivas.</p>
+                    <strong>Ver 21 recetas →</strong>
+                </button>
+
+                <button class="tip-card nutrition-category" data-nutrition="Subir de peso">
+                    <span>🥑</span>
+                    <h3>Aumentar de peso</h3>
+                    <p>21 recetas con mayor aporte energético.</p>
+                    <strong>Ver 21 recetas →</strong>
+                </button>
+
+                <button class="tip-card nutrition-category" data-nutrition="Especial">
+                    <span>🌱</span>
+                    <h3>Alimentación especial</h3>
+                    <p>21 recetas vegetarianas, veganas y adaptadas.</p>
+                    <strong>Ver 21 recetas →</strong>
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- FAVORITOS -->
+        <section class="section" id="favoritos">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">TUS RECETAS PREFERIDAS</span>
+                    <h2>Mis recetas favoritas ♡</h2>
+                </div>
+
+                <p>Encuentra aquí las recetas que hayas guardado.</p>
+            </div>
+
+            <div class="recipe-grid" id="favoritesGrid"></div>
+
+            <p id="favoritesEmpty">
+                Todavía no tienes recetas favoritas. ¡Explora nuestro recetario!
+            </p>
+
+        </section>
+
+        <!-- NOSOTROS -->
+        <section class="about-section" id="nosotros">
+
+            <div>
+                <span class="eyebrow">NUESTRO PROPÓSITO</span>
+                <h2>Nutrición al alcance de todos.</h2>
+            </div>
+
+            <p>
+                NutriRecetas es un proyecto educativo que reúne recetas
+                bolivianas e internacionales e información alimentaria
+                de consulta general. Su propósito es facilitar el acceso
+                a ideas de preparación y promover el interés por una
+                alimentación variada y equilibrada.
+            </p>
+
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="footer">
+
+        <a href="#inicio" class="logo footer-logo">
+            <span class="logo-icon">✿</span>
+            <span>Nutri<span>Recetas</span></span>
+        </a>
+
+        <p>Recetas que nutren, sabores que inspiran.</p>
+
+        <small>
+            Proyecto educativo de 6.º de secundaria · ©
+            <span id="year"></span> NutriRecetas
+        </small>
+
+        <small>
+            La información nutricional es orientativa y no sustituye
+            la evaluación de un profesional de nutrición.
+        </small>
+
+    </footer>
+
+    <!-- VENTANA DE DETALLES -->
+    <dialog class="recipe-dialog" id="recipeDialog">
+
+        <button class="dialog-close" id="dialogClose">×</button>
+
+        <div id="dialogContent"></div>
+
+    </dialog>
+
+</body>
+</html>
