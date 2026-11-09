@@ -2390,7 +2390,6 @@ textarea:focus-visible {
 /* ==========================================
    DISEÑO RESPONSIVE - NUTRIRECETAS
 ========================================== */
-
 /* TABLETS */
 @media (max-width: 900px) {
 
@@ -2407,6 +2406,142 @@ textarea:focus-visible {
         width: 100%;
         height: 145px;
         object-fit: cover;
+    }
+
+}
+
+/* CELULARES */
+@media (max-width: 600px) {
+
+    /* MENÚ */
+    .header {
+        position: relative;
+        flex-wrap: wrap;
+        padding: 14px 16px;
+    }
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        color: #234b37;
+        font-size: 27px;
+        padding: 5px 10px;
+    }
+
+    .nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: #ffffff;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px 20px;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.10);
+        z-index: 1000;
+    }
+
+    .nav.nav-open {
+        display: flex;
+    }
+
+    .nav a {
+        display: block;
+        padding: 13px 8px;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .header-fav {
+        font-size: 13px;
+    }
+
+    /* RECETAS: DOS COLUMNAS */
+    .recipe-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .recipe-card {
+        min-width: 0;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .recipe-card img {
+        width: 100%;
+        height: 125px;
+        object-fit: cover;
+    }
+
+    .recipe-content {
+        padding: 8px;
+    }
+
+    .recipe-content h3 {
+        font-size: 12px;
+        line-height: 1.35;
+        margin: 5px 0;
+        overflow-wrap: anywhere;
+    }
+
+    .recipe-content p {
+        font-size: 10px;
+        line-height: 1.4;
+        margin: 4px 0;
+    }
+
+    .recipe-category {
+        font-size: 9px;
+    }
+
+    .recipe-content .btn {
+        font-size: 10px;
+        padding: 7px 5px;
+        width: 100%;
+    }
+
+    .favorite-btn {
+        font-size: 16px;
+    }
+
+    .recipe-match {
+        font-size: 9px !important;
+    }
+
+    /* FORMULARIO */
+    .profile-fields {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    /* BÚSQUEDA */
+    .recipe-tools {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .recipe-tools input,
+    .recipe-tools select {
+        width: 100%;
+    }
+
+    /* CONSEJOS */
+    .tips-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    /* ESPACIADO */
+    .section {
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
 }
@@ -2544,5 +2679,68 @@ textarea:focus-visible {
         padding-left: 15px;
         padding-right: 15px;
     }
+    /* ==========================================
+   CORRECCIÓN RESPONSIVE: DOS RECETAS POR FILA
+========================================== */
+
+@media screen and (max-width: 650px) {
+
+    /* Distribución de las recetas */
+    .recipe-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+        width: 100% !important;
+    }
+
+    /* Tarjetas */
+    .recipe-grid > .recipe-card {
+        display: block;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        overflow: hidden;
+    }
+
+    /* Contenedor de imágenes */
+    .recipe-grid .recipe-image-wrap {
+        width: 100%;
+        height: 125px;
+        overflow: hidden;
+    }
+
+    /* Imágenes */
+    .recipe-grid .recipe-image {
+        display: block;
+        width: 100%;
+        height: 125px;
+        object-fit: cover;
+    }
+
+    /* Información de las recetas */
+    .recipe-grid .recipe-info {
+        min-width: 0;
+        padding: 10px;
+    }
+
+    .recipe-grid .recipe-info h3 {
+        font-size: 13px;
+        line-height: 1.35;
+        overflow-wrap: anywhere;
+    }
+
+    .recipe-grid .recipe-info p {
+        min-height: 0;
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    /* Elementos inferiores */
+    .recipe-grid .recipe-meta,
+    .recipe-grid .recipe-bottom {
+        flex-wrap: wrap;
+        gap: 7px;
+    }
+}
 
 }
