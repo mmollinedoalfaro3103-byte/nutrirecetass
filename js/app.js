@@ -5,6 +5,70 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    
+    // ==========================================
+    // MENÚ RESPONSIVE PARA CELULARES
+    // ==========================================
+
+    const menuToggle = document.getElementById("menuToggle");
+    const nav = document.getElementById("nav");
+
+    // Abrir y cerrar el menú
+    menuToggle?.addEventListener("click", () => {
+
+        const abierto = nav.classList.toggle("nav-open");
+
+        menuToggle.textContent = abierto ? "✕" : "☰";
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            String(abierto)
+        );
+
+        menuToggle.setAttribute(
+            "aria-label",
+            abierto ? "Cerrar menú" : "Abrir menú"
+        );
+    });
+
+    // Cerrar el menú al seleccionar una opción
+    nav?.querySelectorAll("a").forEach(enlace => {
+
+        enlace.addEventListener("click", () => {
+
+            nav.classList.remove("nav-open");
+
+            menuToggle.textContent = "☰";
+
+            menuToggle.setAttribute("aria-expanded", "false");
+
+            menuToggle.setAttribute("aria-label", "Abrir menú");
+        });
+
+    });
+
+    // Cerrar el menú al tocar fuera
+    document.addEventListener("click", e => {
+
+        if (
+            nav &&
+            menuToggle &&
+            !nav.contains(e.target) &&
+            !menuToggle.contains(e.target)
+        ) {
+
+            nav.classList.remove("nav-open");
+
+            menuToggle.textContent = "☰";
+
+            menuToggle.setAttribute("aria-expanded", "false");
+
+            menuToggle.setAttribute("aria-label", "Abrir menú");
+        }
+
+    });
+
+
     // ==========================================
     // BASE DE DATOS Y ELEMENTOS
     // ==========================================
@@ -52,10 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
         favoritos = [];
     }
 
-    // Categoría seleccionada manualmente.
     let categoriaNutricional = "Todas";
-
-    // Perfil guardado y utilizado para recomendar.
     let perfilActivo = null;
 
     const adaptaciones = {
@@ -171,6 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (preferencia === "Sin lactosa") {
 
             const tieneLacteo = contiene(lacteos);
+
             const tieneDeslactosado =
                 ingredientes.includes("deslactosada") ||
                 ingredientes.includes("deslactosado");
@@ -243,6 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
             razones.push(
                 "Se considera tu actividad física moderada."
             );
+
         } else {
             razones.push(
                 "Se considera tu nivel bajo de actividad física."
@@ -488,9 +551,6 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         });
 
-        // CON PERFIL: DESCARTAR INCOMPATIBILIDADES
-        // Y ORDENAR SEGÚN LOS DATOS DEL USUARIO.
-
         if (perfilActivo) {
 
             filtradas = filtradas
@@ -730,8 +790,6 @@ document.addEventListener("DOMContentLoaded", () => {
             categoriaNutricional =
                 nutricion.dataset.nutrition;
 
-            // Al elegir una categoría manualmente,
-            // se deja de aplicar el orden del perfil.
             perfilActivo = null;
 
             document.querySelectorAll(".nutrition-category")
@@ -755,10 +813,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (categoryFilter) categoryFilter.value = "Todas";
             if (originFilter) originFilter.value = "Todos";
 
-            mostrarRecetas();
+           mostrarRecetas();
 
-            document.getElementById("recetas")
-                ?.scrollIntoView({ behavior: "smooth" });
+document.getElementById("recetas")?.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+});
         }
     });
 
@@ -783,6 +843,265 @@ document.addEventListener("DOMContentLoaded", () => {
             dialog.close();
         }
     });
+
+    // ==========================================
+    // GENERAR GUÍA ALIMENTARIA PERSONALIZADA
+    // ==========================================
+
+    function generarGuiaAlimentaria(perfil) {
+
+        const incluir = [
+            "Frutas variadas, preferentemente enteras.",
+            "Verduras de diferentes colores.",
+            "Legumbres como lentejas, garbanzos y porotos.",
+            "Cereales integrales y tubérculos según tus necesidades.",
+            "Fuentes de proteínas como huevo, pescado, pollo o alternativas vegetales.",
+            "Agua durante el día, ajustando la cantidad a tus necesidades."
+        ];
+
+        const moderar = [
+            "Bebidas azucaradas y refrescos.",
+            "Productos ultraprocesados de consumo frecuente.",
+            "Dulces y productos con azúcares añadidos.",
+            "Alimentos con exceso de sal.",
+            "Frituras frecuentes y preparaciones con exceso de grasas."
+        ];
+
+        const habitos = [
+            "Mantener horarios de alimentación regulares.",
+            "Incorporar frutas y verduras en las comidas.",
+            "Beber agua a lo largo del día.",
+            "Prestar atención a las señales de hambre y saciedad.",
+            "Realizar actividad física adecuada a tu condición.",
+            "Procurar un descanso suficiente."
+        ];
+
+        const observaciones = [];
+
+        // OBJETIVO
+        switch (perfil.objetivo) {
+
+            case "Deportista":
+                incluir.push(
+                    "Alimentos con proteínas para apoyar la recuperación muscular.",
+                    "Fuentes de carbohidratos como arroz, avena, papa y frutas."
+                );
+
+                habitos.push(
+                    "Organizar las comidas alrededor de los horarios de entrenamiento.",
+                    "Mantener una hidratación adecuada durante la actividad física."
+                );
+                break;
+
+            case "Bajar de peso":
+                incluir.push(
+                    "Alimentos ricos en fibra, como verduras, frutas y legumbres.",
+                    "Fuentes de proteínas que contribuyan a la saciedad."
+                );
+
+                habitos.push(
+                    "Priorizar cambios alimentarios sostenibles y evitar dietas extremas.",
+                    "Respetar las señales de hambre y saciedad."
+                );
+                break;
+
+            case "Subir de peso":
+                incluir.push(
+                    "Frutos secos y semillas.",
+                    "Aguacate y otras fuentes de grasas saludables.",
+                    "Preparaciones nutritivas con mayor aporte energético."
+                );
+
+                habitos.push(
+                    "Mantener comidas regulares e incorporar colaciones si son necesarias."
+                );
+                break;
+        }
+
+        // CONDICIONES DE SALUD
+        switch (perfil.condicion) {
+
+            case "Diabetes":
+                incluir.push(
+                    "Verduras, legumbres y alimentos ricos en fibra."
+                );
+
+                moderar.push(
+                    "Bebidas azucaradas y productos con grandes cantidades de azúcar añadido."
+                );
+
+                observaciones.push(
+                    "La cantidad y distribución de carbohidratos debe adaptarse individualmente. No modifiques medicamentos ni tratamientos por esta guía."
+                );
+                break;
+
+            case "Hipertension":
+                moderar.push(
+                    "Embutidos, sopas instantáneas y productos con alto contenido de sodio."
+                );
+
+                observaciones.push(
+                    "Revisa el contenido de sodio en las etiquetas y sigue las indicaciones del profesional que lleva tu control."
+                );
+                break;
+
+            case "Intolerancia lactosa":
+                incluir.push(
+                    "Productos sin lactosa o alternativas vegetales fortificadas, según tu tolerancia."
+                );
+
+                observaciones.push(
+                    "Comprueba las etiquetas de los productos y considera tu tolerancia individual."
+                );
+                break;
+
+            case "Celiaquia":
+                incluir.push(
+                    "Arroz, maíz, quinoa y papa como opciones naturalmente libres de gluten."
+                );
+
+                moderar.push(
+                    "Productos con trigo, cebada o centeno."
+                );
+
+                observaciones.push(
+                    "Utiliza productos certificados sin gluten y evita la contaminación cruzada durante la preparación."
+                );
+                break;
+
+            case "Enfermedad renal":
+                observaciones.push(
+                    "Las necesidades de proteínas, potasio, fósforo, sodio y líquidos varían según cada persona y la etapa de la enfermedad. Esta guía no establece restricciones renales: consulta con un nutricionista o nefrólogo."
+                );
+                break;
+
+            case "Otra":
+                observaciones.push(
+                    "Consulta con un profesional para determinar qué alimentos son adecuados para tu condición."
+                );
+                break;
+        }
+
+        // PREFERENCIAS ALIMENTARIAS
+        switch (perfil.preferencia) {
+
+            case "Vegetariana":
+                incluir.push(
+                    "Legumbres, frutos secos, semillas y, si los consumes, huevos y lácteos."
+                );
+                break;
+
+            case "Vegana":
+                incluir.push(
+                    "Legumbres, tofu, frutos secos y semillas.",
+                    "Alimentos fortificados que aporten calcio y vitamina B12."
+                );
+
+                observaciones.push(
+                    "Una alimentación vegana requiere planificar nutrientes como vitamina B12, hierro, calcio y proteínas."
+                );
+                break;
+
+            case "Sin lactosa":
+                incluir.push(
+                    "Bebidas vegetales fortificadas y productos lácteos sin lactosa, si los toleras."
+                );
+                break;
+
+            case "Sin gluten":
+                incluir.push(
+                    "Arroz, maíz, quinoa y productos certificados sin gluten."
+                );
+
+                observaciones.push(
+                    "Verifica que los productos no tengan contaminación cruzada con gluten."
+                );
+                break;
+        }
+
+        // EDAD
+        if (Number(perfil.edad) < 18) {
+            observaciones.push(
+                "Durante la adolescencia el cuerpo continúa creciendo. Evita las dietas restrictivas y busca orientación profesional antes de realizar cambios importantes."
+            );
+        }
+
+        // ACTIVIDAD FÍSICA
+        if (perfil.actividad === "Alta") {
+            habitos.push(
+                "Planificar la alimentación y la hidratación de acuerdo con la intensidad del ejercicio."
+            );
+        }
+
+        if (perfil.actividad === "Baja") {
+            habitos.push(
+                "Incorporar movimiento de forma gradual y adaptada a tus posibilidades."
+            );
+        }
+
+        // ELIMINAR ELEMENTOS REPETIDOS
+        const listaIncluir = [...new Set(incluir)];
+        const listaModerar = [...new Set(moderar)];
+        const listaHabitos = [...new Set(habitos)];
+        const listaObservaciones = [...new Set(observaciones)];
+
+        // CONSTRUIR HTML
+        return `
+            <div class="food-guide">
+
+                <h3>🥗 Alimentos que puedes incluir</h3>
+
+                <ul>
+                    ${listaIncluir.map(item =>
+                        `<li>${item}</li>`
+                    ).join("")}
+                </ul>
+
+                <h3>⚖️ Alimentos que conviene moderar</h3>
+
+                <ul>
+                    ${listaModerar.map(item =>
+                        `<li>${item}</li>`
+                    ).join("")}
+                </ul>
+
+                <h3>🌿 Hábitos saludables</h3>
+
+                <ul>
+                    ${listaHabitos.map(item =>
+                        `<li>${item}</li>`
+                    ).join("")}
+                </ul>
+
+                ${
+                    listaObservaciones.length
+                        ? `
+                            <div class="food-observations">
+
+                                <h3>📌 Importante para tu perfil</h3>
+
+                                <ul>
+                                    ${listaObservaciones.map(item =>
+                                        `<li>${item}</li>`
+                                    ).join("")}
+                                </ul>
+
+                            </div>
+                        `
+                        : ""
+                }
+
+                <p class="food-guide-note">
+                    Esta guía tiene fines educativos.
+                    No constituye una dieta personalizada,
+                    diagnóstico ni tratamiento médico.
+                    Las necesidades nutricionales varían
+                    según cada persona.
+                </p>
+
+            </div>
+        `;
+    }
 
     // ==========================================
     // MOSTRAR RECOMENDACIÓN DEL PERFIL
@@ -894,6 +1213,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         recommendationText.textContent = recomendacion;
+
+        // CREAR O ACTUALIZAR LA GUÍA ALIMENTARIA
+        let foodGuide = recommendationBox.querySelector("#foodGuide");
+
+        if (!foodGuide) {
+            foodGuide = document.createElement("div");
+            foodGuide.id = "foodGuide";
+            recommendationBox.appendChild(foodGuide);
+        }
+
+        foodGuide.innerHTML = generarGuiaAlimentaria(perfil);
+
         recommendationBox.hidden = false;
     }
 
@@ -963,8 +1294,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Activar el perfil y quitar el filtro exacto
-        // de las categorías nutricionales.
         perfilActivo = perfil;
         categoriaNutricional = "Todas";
 
@@ -979,19 +1308,23 @@ document.addEventListener("DOMContentLoaded", () => {
             titulo.textContent = "Recetas para tu perfil";
         }
 
-        // Reiniciar los filtros
         if (searchInput) searchInput.value = "";
         if (categoryFilter) categoryFilter.value = "Todas";
         if (originFilter) originFilter.value = "Todos";
 
-        mostrarRecomendacion(perfil);
-        mostrarRecetas();
+      mostrarRecomendacion(perfil);
+      mostrarRecetas();
 
-        profileMessage.textContent =
-            "¡Tu perfil se guardó correctamente! Las recetas se ordenaron según tus datos.";
+      profileMessage.textContent =
+          "¡Tu perfil se guardó correctamente! Tus recomendaciones están listas.";
 
-        document.getElementById("recetas")
-            ?.scrollIntoView({ behavior: "smooth" });
+// Ir directamente a las recomendaciones
+requestAnimationFrame(() => {
+    recommendationBox?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+});
     });
 
     // ==========================================

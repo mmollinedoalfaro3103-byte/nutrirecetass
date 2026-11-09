@@ -2336,3 +2336,213 @@ textarea:focus-visible {
     font-weight: 600;
     margin: 8px 0;
 }
+
+
+/* =====================================
+   GUÍA DE ALIMENTACIÓN PERSONALIZADA
+===================================== */
+
+.food-guide {
+    margin-top: 25px;
+    text-align: left;
+}
+
+.food-guide h3 {
+    color: #234b37;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    margin: 22px 0 10px;
+}
+
+.food-guide ul {
+    padding-left: 22px;
+    margin-bottom: 18px;
+}
+
+.food-guide li {
+    margin-bottom: 9px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.food-observations {
+    background: #f8f7f0;
+    border-left: 4px solid #8ba58a;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.food-observations h3 {
+    margin-top: 0;
+}
+
+.food-guide-note {
+    font-size: 0.82rem;
+    color: #777;
+    margin-top: 20px;
+    line-height: 1.6;
+}
+#recommendationBox {
+    scroll-margin-top: 110px;
+}
+
+/* ==========================================
+   DISEÑO RESPONSIVE - NUTRIRECETAS
+========================================== */
+
+/* TABLETS */
+@media (max-width: 900px) {
+
+    .recipe-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .recipe-card {
+        min-width: 0;
+    }
+
+    .recipe-card img {
+        width: 100%;
+        height: 145px;
+        object-fit: cover;
+    }
+
+}
+
+/* CELULARES */
+@media (max-width: 600px) {
+
+    /* MENÚ */
+    .header {
+        position: relative;
+        flex-wrap: wrap;
+        padding: 14px 16px;
+    }
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        color: #234b37;
+        font-size: 27px;
+        padding: 5px 10px;
+    }
+
+    .nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: #ffffff;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px 20px;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.10);
+        z-index: 1000;
+    }
+
+    .nav.nav-open {
+        display: flex;
+    }
+
+    .nav a {
+        display: block;
+        padding: 13px 8px;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .header-fav {
+        font-size: 13px;
+    }
+
+    /* RECETAS: TRES COLUMNAS */
+    .recipe-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .recipe-card {
+        min-width: 0;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .recipe-card img {
+        width: 100%;
+        height: 105px;
+        object-fit: cover;
+    }
+
+    .recipe-content {
+        padding: 8px;
+    }
+
+    .recipe-content h3 {
+        font-size: 11px;
+        line-height: 1.35;
+        margin: 5px 0;
+        overflow-wrap: anywhere;
+    }
+
+    .recipe-content p {
+        font-size: 9px;
+        line-height: 1.4;
+        margin: 4px 0;
+    }
+
+    .recipe-category {
+        font-size: 8px;
+    }
+
+    .recipe-content .btn {
+        font-size: 9px;
+        padding: 7px 5px;
+        width: 100%;
+    }
+
+    .favorite-btn {
+        font-size: 16px;
+    }
+
+    .recipe-match {
+        font-size: 8px !important;
+    }
+
+    /* FORMULARIO */
+    .profile-fields {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    /* HERRAMIENTAS DE BÚSQUEDA */
+    .recipe-tools {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .recipe-tools input,
+    .recipe-tools select {
+        width: 100%;
+    }
+
+    /* CATEGORÍAS */
+    .tips-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    /* ESPACIADO GENERAL */
+    .section {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+}
